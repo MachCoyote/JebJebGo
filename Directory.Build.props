@@ -1,0 +1,43 @@
+<Project>
+  <!--
+    Shared build settings.
+
+    KspRoot       KSP install the build references and deploys to:
+                  KSP_ROOT environment variable, or ..\JebJebGo.KSP.
+    KspStockRoot  Optional stock KSP 1.12.5 install: KSP_STOCK_ROOT, or
+                  ..\JebJebGo.KSP112. When it exists, the game assemblies are
+                  referenced from it (the lowest common denominator: Unity 2019.4,
+                  no netstandard.dll), so one build runs on 1.12.5 and ReTooled.
+    Deploy        -p:Deploy=false skips copying the plugin into GameData.
+  -->
+  <PropertyGroup>
+    <RepositoryRoot>$(MSBuildThisFileDirectory)</RepositoryRoot>
+
+    <KspRoot Condition="'$(KspRoot)' == '' and '$(KSP_ROOT)' != ''">$(KSP_ROOT)</KspRoot>
+    <KspRoot Condition="'$(KspRoot)' == ''">$(RepositoryRoot)..\JebJebGo.KSP</KspRoot>
+    <KspRoot>$([MSBuild]::EnsureTrailingSlash('$(KspRoot)'))</KspRoot>
+
+    <KspStockRoot Condition="'$(KspStockRoot)' == '' and '$(KSP_STOCK_ROOT)' != ''">$(KSP_STOCK_ROOT)</KspStockRoot>
+    <KspStockRoot Condition="'$(KspStockRoot)' == ''">$(RepositoryRoot)..\JebJebGo.KSP112</KspStockRoot>
+    <KspStockRoot>$([MSBuild]::EnsureTrailingSlash('$(KspStockRoot)'))</KspStockRoot>
+
+    <KspManaged>$(KspRoot)KSP_x64_Data\Managed\</KspManaged>
+    <KspGameData>$(KspRoot)GameData\</KspGameData>
+    <KspStockManaged>$(KspStockRoot)KSP_x64_Data\Managed\</KspStockManaged>
+
+    <KspRefRoot Condition="Exists('$(KspStockManaged)Assembly-CSharp.dll')">$(KspStockRoot)</KspRefRoot>
+    <KspRefRoot Condition="'$(KspRefRoot)' == ''">$(KspRoot)</KspRefRoot>
+    <KspRefManaged>$(KspRefRoot)KSP_x64_Data\Managed\</KspRefManaged>
+    <KspRefGameData>$(KspRefRoot)GameData\</KspRefGameData>
+
+    <TargetFramework>net472</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Deterministic>true</Deterministic>
+    <DebugType>portable</DebugType>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+</Project>

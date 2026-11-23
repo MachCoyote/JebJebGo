@@ -1,0 +1,51 @@
+<Project>
+  <!--
+    Game assembly references for projects that run inside KSP. Import from a
+    project file after Directory.Build.props has set KspRefManaged. Game
+    assemblies are compile-time references only: they are never copied to the
+    output, deployed, or committed. KSP compiles its own TextMeshPro into
+    Assembly-CSharp; never reference Unity.TextMeshPro (CS0433 conflicts).
+
+    Set JebJebGoUsesHarmony=true to reference 0Harmony from the dev instance's
+    GameData/000_Harmony (install HarmonyKSP there).
+  -->
+  <ItemGroup>
+    <Reference Include="$(KspRefManaged)Assembly-CSharp.dll" Private="false" />
+    <Reference Include="$(KspRefManaged)Assembly-CSharp-firstpass.dll" Private="false" />
+    <Reference Include="$(KspRefManaged)UnityEngine.dll" Private="false" />
+    <Reference Include="$(KspRefManaged)UnityEngine.CoreModule.dll" Private="false" />
+    <Reference Include="$(KspRefManaged)UnityEngine.UI.dll" Private="false" />
+    <Reference Include="$(KspRefManaged)UnityEngine.UIModule.dll" Private="false" />
+    <Reference Include="$(KspRefManaged)UnityEngine.IMGUIModule.dll" Private="false" />
+    <Reference Include="$(KspRefManaged)UnityEngine.InputLegacyModule.dll" Private="false" />
+    <Reference Include="$(KspRefManaged)UnityEngine.TextRenderingModule.dll" Private="false" />
+    <Reference Include="$(KspRefManaged)UnityEngine.ImageConversionModule.dll" Private="false" />
+    <Reference Include="$(KspRefManaged)UnityEngine.ScreenCaptureModule.dll" Private="false" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(JebJebGoUsesHarmony)' == 'true'">
+    <Reference Include="$(KspRefGameData)000_Harmony\0Harmony.dll" Private="false" />
+  </ItemGroup>
+
+  <Target Name="JebJebGoCheckKspRoot" BeforeTargets="ResolveAssemblyReferences">
+    <Error Condition="!Exists('$(KspRefManaged)Assembly-CSharp.dll')"
+           Text="No KSP dev instance found (looked at '$(KspStockRoot)' and '$(KspRoot)'). Set KSP_ROOT to a KSP install (and optionally KSP_STOCK_ROOT to a stock 1.12.5 install)." />
+    <Error Condition="'$(JebJebGoUsesHarmony)' == 'true' and !Exists('$(KspRefGameData)000_Harmony\0Harmony.dll')"
+           Text="Harmony is not installed in '$(KspRefRoot)'. Install HarmonyKSP into GameData/000_Harmony." />
+  </Target>
+
+  <!--
+    Deploy: copy the built assembly into every existing dev instance's
+    GameData after each build. Projects set JebJebGoDeployFolder (relative to
+    GameData). Pass -p:Deploy=false to skip.
+  -->
+  <ItemGroup>
+    <JebJebGoDeployRoot Include="$(KspRoot)" Condition="Exists('$(KspRoot)GameData')" />
+    <JebJebGoDeployRoot Include="$(KspStockRoot)" Condition="Exists('$(KspStockRoot)GameData')" />
+  </ItemGroup>
+  <Target Name="JebJebGoDeploy" AfterTargets="Build" Condition="'$(Deploy)' != 'false' and '$(JebJebGoDeployFolder)' != ''">
+    <Copy SourceFiles="$(TargetPath);$(TargetDir)$(TargetName).pdb;@(JebJebGoDeployExtra)"
+          DestinationFolder="%(JebJebGoDeployRoot.Identity)GameData\$(JebJebGoDeployFolder)\Plugins"
+          SkipUnchangedFiles="true" />
+    <Message Importance="high" Text="Deployed $(TargetName) to %(JebJebGoDeployRoot.Identity)GameData\$(JebJebGoDeployFolder)\Plugins" />
+  </Target>
+</Project>

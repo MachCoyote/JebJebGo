@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    The shipped JebJebGo plugin: Harmony hooks on the stock part search,
+    part snapshots, and applying engine results to the stock parts list.
+    Deployed to GameData/JebJebGo/Plugins together with JebJebGo.Core.
+  -->
+  <PropertyGroup>
+    <AssemblyName>JebJebGo</AssemblyName>
+    <RootNamespace>JebJebGo</RootNamespace>
+    <Version>1.0.0</Version>
+    <JebJebGoDeployFolder>JebJebGo</JebJebGoDeployFolder>
+    <JebJebGoUsesHarmony>true</JebJebGoUsesHarmony>
+  </PropertyGroup>
+  <Import Project="$(RepositoryRoot)build\KspReferences.props" />
+  <ItemGroup>
+    <ProjectReference Include="..\JebJebGo.Core\JebJebGo.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <JebJebGoDeployExtra Include="$(TargetDir)JebJebGo.Core.dll;$(TargetDir)JebJebGo.Core.pdb" />
+  </ItemGroup>
+</Project>

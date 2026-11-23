@@ -1,0 +1,15 @@
+# Build output
+[Bb]in/
+[Oo]bj/
+/dist/
+
+# Test output
+/TestResults/
+*.trx
+
+# IDE state
+.vs/
+.idea/
+.vscode/
+*.suo
+*.user

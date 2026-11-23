@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    JebJebGo search engine. Must not reference Unity or KSP: it runs on
+    immutable part snapshots, is unit-tested outside the game, and will run
+    off the main thread. net472 because stock KSP 1.12.5 ships no
+    netstandard.dll. Deployed by the JebJebGo plugin project.
+  -->
+  <PropertyGroup>
+    <AssemblyName>JebJebGo.Core</AssemblyName>
+    <RootNamespace>JebJebGo.Core</RootNamespace>
+    <Version>1.0.0</Version>
+  </PropertyGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="JebJebGo" />
+    <InternalsVisibleTo Include="JebJebGo.Core.Tests" />
+  </ItemGroup>
+</Project>
