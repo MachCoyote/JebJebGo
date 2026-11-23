@@ -6,7 +6,7 @@ It greatly speeds up switching tabs and searching for parts, and shines in heavi
 
 ## Speed
 
-JebJebGo significantly speeds up both the time part searching takes, as well as the time it takes KSP to draw parts in the parts drawer. This manifests as and up to or over a 3x speedup in times to search parts and switch part tabs in the VAB.
+JebJebGo significantly speeds up both the time part searching takes, as well as the time it takes KSP to draw parts in the parts drawer. This manifests as an up to or over a 8x speedup in times to search parts and switch part tabs in the VAB.
 
 ## Non-Blocking
 
