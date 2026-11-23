@@ -26,6 +26,8 @@ JebJebGo supports KSP 1.12.5, aswell as KSP ReTooled 1.13.0, with even greater t
 
 Effort has been made to keep JebJebGo compatible with other popular mods, though compatibility cannot be guaranteed.
 
+JebJebGo is part of the vAlphabet suite.
+
 ## Installation
 
 1. Install [Harmony](https://github.com/KSPModdingLibs/HarmonyKSP) (`GameData/000_Harmony`), if it is not installed already.
