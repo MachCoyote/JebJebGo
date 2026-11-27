@@ -8,7 +8,7 @@
   <PropertyGroup>
     <AssemblyName>JebJebGo.Core</AssemblyName>
     <RootNamespace>JebJebGo.Core</RootNamespace>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
   </PropertyGroup>
   <ItemGroup>
     <InternalsVisibleTo Include="JebJebGo" />

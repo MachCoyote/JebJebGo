@@ -56,9 +56,12 @@ namespace JebJebGo
 
         private static void Patch(Harmony harmony, string method, string prefix)
         {
+            // Last, so other mods' prefixes on the same refresh (VAB Organizer clears
+            // its subcategories and switches its sorters there) still run: a prefix
+            // that returns false skips the prefixes ordered after it.
             harmony.Patch(AccessTools.Method(typeof(EditorPartList), method)
                     ?? throw new MissingMethodException("EditorPartList." + method + " not found"),
-                prefix: new HarmonyMethod(typeof(ListRefreshPatch), prefix));
+                prefix: new HarmonyMethod(typeof(ListRefreshPatch), prefix) { priority = Priority.Last });
         }
 
         private static bool Run(EditorPartList list, Kind kind)

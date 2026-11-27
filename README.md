@@ -60,7 +60,7 @@ JebJebGo is part of the vAlphabet suite.
 
 **Failures.** If any part of JebJebGo fails, it logs one error and the stock search and parts drawer take over for the rest of the session.
 
-**Tested with** KSP Community Fixes, EditorExtensionsRedux, Community Category Kit, Janitor's Closet, and Hyperdrive.
+**Tested with** KSP Community Fixes, EditorExtensionsRedux, Community Category Kit, Janitor's Closet, Hyperdrive, and VAB Organizer.
 
 ## Building
 

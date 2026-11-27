@@ -74,6 +74,12 @@ namespace JebJebGo
         /// <summary>Icons the virtual list still has to create for the visible window (0 when settled).</summary>
         public static int PendingIcons { get; internal set; }
 
+        /// <summary>True while the virtual list lays out VAB Organizer's subcategories (in the current editor).</summary>
+        public static bool VabOrganizerSections { get; internal set; }
+
+        /// <summary>Sections (grids) with parts in the last list shown virtually: 1 without VAB Organizer.</summary>
+        public static int ListSections { get; internal set; }
+
         /// <summary>Main-thread milliseconds of the last virtual list refresh.</summary>
         public static double LastListShowMs { get; internal set; }
 
